@@ -1,0 +1,235 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Date Proposal for Chaturthi</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #e91e63;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+        .yes {
+            background: #4caf50;
+            color: white;
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #4caf50; }
+            50% { box-shadow: 0 0 20px #4caf50; }
+            100% { box-shadow: 0 0 5px #4caf50; }
+        }
+        .yes:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+        .no {
+            background: #f44336;
+            color: white;
+            position: relative;
+        }
+        .no:hover {
+            background: #d32f2f;
+            transform: scale(1.05);
+        }
+        .message {
+            font-size: 1.5em;
+            color: #e91e63;
+            margin-top: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: 2em;
+            animation: float 6s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+        .fireworks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            animation: burst 2s infinite ease-in-out;
+        }
+        @keyframes burst {
+            0% { transform: scale(0) translateY(0); opacity: 1; }
+            50% { transform: scale(1) translateY(-50px); opacity: 0.8; }
+            100% { transform: scale(0) translateY(-100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="fireworks" id="fireworks"></div>
+    <div class="container">
+        <h1>Will You Be My Date on 14th Feb, Chaturthi?</h1>
+        <p>Hey Chaturthi,  Will you make this Valentine's Day special by going on a date with me? I promise it'll be unforgettable! ❤️</p>
+        <div class="buttons">
+            <button class="yes" onclick="respond('yes')">Yes</button>
+            <button class="no" id="noButton" onclick="handleNo()">No</button>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const messages = [
+            "Come on, say yes! 😊",
+            "Really? Think again! 😉",
+            "My heart can't take this! 😢",
+            "Please, just click yes! 💪❤️",
+            "i know youu also think about me❤️, so just click on yesss!!!! "
+        ];
+
+        function respond(answer) {
+            const messageDiv = document.getElementById('message');
+            const noButton = document.getElementById('noButton');
+            if (answer === 'yes') {
+                messageDiv.innerHTML = "Yeah mala mahit hot tu nhi ny bolnar chal mg apan apla plan karuu ??? thank youu so much for saying yes to my propsal Chaturthi! ❤️";
+                noButton.style.display = 'none';
+                createFireworks(50);
+                createHearts(50);
+            }
+        }
+
+        function handleNo() {
+            const noButton = document.getElementById('noButton');
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = messages[noClickCount % messages.length];
+            // Make it harder to click no by moving it
+            shiftNoButton();
+            noClickCount++;
+            if (noClickCount > 5) {
+                // After a few tries, make it even harder or force yes
+                noButton.style.display = 'none';
+                messageDiv.innerHTML = "okay now there is NO button for saying NO so please click on yesss ❤️";
+            }
+        }
+
+        function shiftNoButton() {
+            const noButton = document.getElementById('noButton');
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            let top, left;
+            do {
+                top = Math.random() * (window.innerHeight - 100) + 50;
+                left = Math.random() * (window.innerWidth - 150) + 50;
+            } while (
+                top > containerRect.top - 50 && top < containerRect.bottom + 50 &&
+                left > containerRect.left - 50 && left < containerRect.right + 50
+            );
+            noButton.style.position = 'fixed';
+            noButton.style.top = top + 'px';
+            noButton.style.left = left + 'px';
+        }
+
+        function createHearts(count = 20) {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        function createFireworks(count = 20) {
+            const fireworksContainer = document.getElementById('fireworks');
+            for (let i = 0; i < count; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.animationDelay = Math.random() * 2 + 's';
+                fireworksContainer.appendChild(firework);
+                setTimeout(() => firework.remove(), 2000);
+            }
+        }
+
+        createHearts();
+        createFireworks();
+    </script>
+</body>
+</html>
